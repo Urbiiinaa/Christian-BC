@@ -330,8 +330,10 @@
     @keyframes holo-spin { to { transform: rotate(360deg); } }
     @keyframes holo-pulse { 0%, 100% { opacity: .1; } 50% { opacity: .25; } }
 
-    /* disable the idle halo entirely on small screens — too dominant relative to card size */
-    @media (max-width: 600px) {
+    /* disable the idle halo on touch devices (phones/tablets in either orientation) — width-based
+       breakpoints fail here because landscape phones report a desktop-like viewport width.
+       Checking for the absence of fine-pointer hover support is orientation-independent. */
+    @media (hover: none), (pointer: coarse) {
       .holo-edge { display: none; }
     }
 
