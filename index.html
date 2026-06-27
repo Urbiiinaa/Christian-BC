@@ -45,6 +45,10 @@
     .n8n-chat-widget .n8n-chat-button { display: none !important; }
 
     .color-panel {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 20;
       display: flex;
       gap: 15px;
@@ -55,7 +59,10 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      margin-bottom: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .color-panel { top: 14px; padding: 8px 14px; gap: 10px; }
     }
 
     .color-panel label {
@@ -367,7 +374,7 @@
 
     .logo-row { display: flex; align-items: center; gap: 8px; }
 
-    .vcard-btn {
+    .top-icon-btn {
       width: 28px; height: 28px;
       border-radius: 9px;
       border: 1px solid rgba(255, 255, 255, .22);
@@ -377,15 +384,16 @@
       cursor: pointer;
       flex-shrink: 0;
       transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+      text-decoration: none;
     }
-    .vcard-btn svg { width: 14px; height: 14px; fill: rgba(220, 235, 255, .85); }
-    .vcard-btn:hover {
+    .top-icon-btn svg { width: 14px; height: 14px; fill: rgba(220, 235, 255, .85); }
+    .top-icon-btn:hover {
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       box-shadow: 0 0 12px color-mix(in srgb, var(--primary-color) 50%, transparent);
       transform: scale(1.08);
     }
-    .vcard-btn:hover svg { fill: #fff; }
-    .vcard-btn:active { transform: scale(.95); }
+    .top-icon-btn:hover svg { fill: #fff; }
+    .top-icon-btn:active { transform: scale(.95); }
 
     .card-tag {
       font-family: 'Orbitron', sans-serif;
@@ -603,9 +611,12 @@
       <div class="card-top">
         <div class="logo-row">
           <div class="logo-mark">CU</div>
-          <button class="vcard-btn" id="vcardBtn" type="button" title="Save contact" aria-label="Save contact to your phone">
+          <button class="top-icon-btn" id="vcardBtn" type="button" title="Save contact" aria-label="Save contact to your phone">
             <svg viewBox="0 0 24 24"><path d="M19 13h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/><path d="M11 13c-2.67 0-8 1.34-8 4v2h11v-2c0-.32-.04-.62-.12-.9C13 15.06 12.06 14 11 13zm0-2a4 4 0 100-8 4 4 0 000 8z"/></svg>
           </button>
+          <a class="top-icon-btn" href="https://www.linkedin.com/in/urbinac/" target="_blank" title="LinkedIn" aria-label="Open Christian's LinkedIn profile">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 18V9.75H5.67V18h2.67zM7 8.6a1.55 1.55 0 100-3.1 1.55 1.55 0 000 3.1zM18.34 18v-4.6c0-2.46-1.31-3.61-3.06-3.61-1.41 0-2.04.78-2.39 1.32v-1.36H10.2c.04.84 0 8.25 0 8.25h2.69v-4.6c0-.25.02-.5.1-.68.2-.5.66-1.02 1.43-1.02 1.01 0 1.42.77 1.42 1.9V18h2.5z"/></svg>
+          </a>
         </div>
         <div class="card-tag">VP PROFILES</div>
       </div>
@@ -843,6 +854,7 @@
       'EMAIL;TYPE=INTERNET:urbina.christian123@gmail.com',
       'TEL;TYPE=CELL:(323) 365-3500',
       'URL:https://primetimeproservices.com/',
+      'URL:https://www.linkedin.com/in/urbinac/',
       'END:VCARD'
     ].join('\r\n');
 
