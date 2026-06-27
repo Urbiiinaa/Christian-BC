@@ -235,8 +235,6 @@
       transition: opacity .3s ease;
       z-index: 3;
     }
-    .card:hover .card-light { opacity: 1; }
-
     /* tinted color wash that follows the same light position, for the "reflections change" effect */
     .card-light-color {
       position: absolute; inset: 0;
@@ -252,7 +250,12 @@
       transition: opacity .3s ease;
       z-index: 3;
     }
-    .card:hover .card-light-color { opacity: .8; }
+
+    /* only activate on real hover (mouse) — a tap on touchscreens has no continuous mouse position to follow, and the effect would otherwise get stuck visible */
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover .card-light { opacity: 1; }
+      .card:hover .card-light-color { opacity: .8; }
+    }
 
     /* ===== #7 Noise texture (grain) ===== */
     .card-noise {
@@ -296,7 +299,10 @@
       transition: opacity .4s;
       animation: spin 4s linear infinite;
     }
-    .card:hover .card-inner::after { opacity: 1; }
+    /* only trigger on devices that support real hover (mouse) — avoids this getting stuck "on" after a tap on touchscreens */
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover .card-inner::after { opacity: 1; }
+    }
 
     @keyframes spin { to { --angle: 360deg; } }
 
@@ -306,10 +312,10 @@
       inherits: false;
     }
 
-    /* idle holographic pulse even without hover, very subtle */
+    /* idle holographic pulse, very subtle thin edge-light rather than a large moving orb */
     .holo-edge {
-      position: absolute; inset: -2px;
-      border-radius: 26px;
+      position: absolute; inset: -1px;
+      border-radius: 25px;
       z-index: -2;
       pointer-events: none;
       background: conic-gradient(
@@ -317,12 +323,17 @@
         transparent, color-mix(in srgb, var(--primary-color) 60%, transparent), transparent 30%,
         transparent, color-mix(in srgb, var(--secondary-color) 60%, transparent), transparent 60%
       );
-      filter: blur(6px);
-      opacity: .45;
-      animation: holo-spin 6s linear infinite, holo-pulse 3s ease-in-out infinite;
+      filter: blur(3px);
+      opacity: .18;
+      animation: holo-spin 10s linear infinite, holo-pulse 4s ease-in-out infinite;
     }
     @keyframes holo-spin { to { transform: rotate(360deg); } }
-    @keyframes holo-pulse { 0%, 100% { opacity: .25; } 50% { opacity: .55; } }
+    @keyframes holo-pulse { 0%, 100% { opacity: .1; } 50% { opacity: .25; } }
+
+    /* disable the idle halo entirely on small screens — too dominant relative to card size */
+    @media (max-width: 600px) {
+      .holo-edge { display: none; }
+    }
 
     .card-top { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 5; }
 
